@@ -216,3 +216,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+*.swp
+
+# Data files
+*.csv
+*.json
+*.txt

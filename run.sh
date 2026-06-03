@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd build
-./lab6
+./lab7

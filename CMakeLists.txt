@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(Lab6_OpenCV)
+project(Lab7_OpenCV)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,11 +12,12 @@ include_directories(
     include
 )
 
-add_executable(lab6
+add_executable(lab7
     src/main.cpp
     src/CameraProvider.cpp
     src/KeyProcessor.cpp
     src/FrameProcessor.cpp
+    src/FaceDetector.cpp
 )
 
-target_link_libraries(lab6 ${OpenCV_LIBS})
+target_link_libraries(lab7 ${OpenCV_LIBS})

@@ -4,6 +4,7 @@
 #include "CameraProvider.hpp"
 #include "KeyProcessor.hpp"
 #include "FrameProcessor.hpp"
+#include "FaceDetector.hpp"
 
 int main() {
     CameraProvider camera(0);
@@ -12,6 +13,13 @@ int main() {
         std::cerr << "Помилка: не вдалося відкрити камеру." << std::endl;
         return -1;
     }
+
+    FaceDetector detector(
+        "deploy.prototxt",
+        "res10_300x300_ssd_iter_140000.caffemodel"
+    );
+
+    detector.start();
 
     std::cout << "Камеру відкрито успішно." << std::endl;
     std::cout << "Для виходу натисніть Esc або Q." << std::endl;
@@ -24,9 +32,22 @@ int main() {
             break;
         }
 
+        detector.updateFrame(frame);
+
+        auto faces = detector.getFaces();
+
+        for (const auto& face : faces) {
+            cv::rectangle(
+                frame,
+                face,
+                cv::Scalar(0, 255, 0),
+                2
+            );
+        }
+
         cv::Mat processedFrame = FrameProcessor::process(frame);
 
-        cv::imshow("Original Frame", frame);
+        cv::imshow("Original Frame with Face Detection", frame);
         cv::imshow("Processed Frame", processedFrame);
 
         int key = cv::waitKey(30);
@@ -36,6 +57,7 @@ int main() {
         }
     }
 
+    detector.stop();
     cv::destroyAllWindows();
 
     return 0;

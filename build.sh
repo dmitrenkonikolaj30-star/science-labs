@@ -6,4 +6,4 @@ cd build
 cmake ..
 make
 
-./lab6
+./lab7
